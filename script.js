@@ -1,4 +1,5 @@
 // TODO 1: Wait for the DOM to be fully loaded
+const HTML_MESSAGE = document.getElementById("message")
 document.addEventListener('DOMContentLoaded', () => {
     // TODO 2: Get references to the DOM elements we need
     // HINT: We need messageInput, sendButton, and messageArea
