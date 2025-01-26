@@ -4,22 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Simple Messaging App</title>
+    <title>Group Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDKs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-database-compat.min.js"></script>
 </head>
 
 <body>
-    <div class="chat-container">
-        <div class="chat-header" id="chat-header">
-            <h1>Simple Chat</h1>
+    <div class="container">
+        <!-- Login Section -->
+        <div id="loginBox">
+            <h2>Chat Login</h2>
+            <input type="email" id="emailInput" placeholder="Email">
+            <input type="password" id="passwordInput" placeholder="Password">
+            <div class="button-group">
+                <button id="loginBtn">Login</button>
+                <button id="registerBtn">Register</button>
+                <button id="guestBtn">enter to guest</button>
+                <!-- 익명 로그인 버튼 -->
+            </div>
         </div>
-        <div class="messages" id="messageArea"></div>
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Type a message...">
-            <button id="sendButton">Send</button>
+
+        <!-- Chat Section -->
+        <div id="chatBox">
+            <div class="top-bar">
+                <div class="user-info">
+                    <span>Logged in as: </span>
+                    <span id="userEmail"></span>
+                </div>
+                <button id="logoutBtn">Logout</button>
+            </div>
+
+            <div class="messages" id="messages"></div>
+
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button id="sendBtn">Send</button>
+            </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="app.js"></script>
 </body>
 
 </html>

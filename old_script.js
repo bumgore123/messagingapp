@@ -112,3 +112,5 @@ function deleteSpace(text) {
 sendButton.addEventListener(`click`, () =>
     sendMessage()
 )
+
+
