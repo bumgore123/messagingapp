@@ -55,7 +55,7 @@ function loginProcess() {
 
 function githubLoginProcess() {
     auth.signInWithPopup(githubProvider).catch(handleError);
-    
+
 }
 
 
@@ -93,8 +93,6 @@ function handleAuthChanged(user) {
         if (user.isAnonymous === true) {
             // 익명 로그인
             USER_EMAIL.innerText = "Guest User"
-        } else if (user.providerId === "github.com") {
-                   USER_EMAIL.EMAIL.innerText = user.constructor.name
         }
         else {
             // 이메일 로그인
@@ -127,8 +125,6 @@ function sendMessage() {
         let user_name = ""
         if (auth.currentUser.email === null) {
             user_name = "Anonymous User"
-        } else if (user.providerId === "github.com") {
-        user_name = "user.constructor.name"
         }
         else {
             user_name = emailToName(auth.currentUser.email)
