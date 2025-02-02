@@ -12,6 +12,8 @@ const firebaseConfig = {
 // Firebase 메세지 저장소 이름
 const FIREBASE_DB_REF = "messages"
 
+const githubProvider = new firebase.auth.GithubAuthProvider();
+
 // Firebase 사용준비 완료
 firebase.initializeApp(firebaseConfig);
 
@@ -35,6 +37,7 @@ const HTML_LOGOUT_BTN = document.getElementById("logoutBtn")
 const HTML_SEND_BTN = document.getElementById("sendBtn")
 const HTML_MESSAGE_INPUT = document.getElementById("messageInput")
 const HTML_MESSAGES_AREA = document.getElementById("messages")
+const HTML_GITHUB_LOGIN_BTN = document.getElementById("loginByGithubBTN")
 
 // 회원가입/로그인 중 에러가 일어났을때 실행할 함수
 function handleError(error) {
@@ -49,6 +52,13 @@ function loginProcess() {
 
     auth.signInWithEmailAndPassword(userEmail, userPassword).catch(handleError)
 }
+
+function githubLoginProcess() {
+    auth.signInWithPopup(githubProvider).catch(handleError);
+    
+}
+
+
 
 // 회원가입 버튼을 눌렀을때 실행할 함수
 function registerProcess() {
@@ -73,7 +83,9 @@ function logoutProcess() {
 
 // 유저의 로그인 상태가 바꼈을때 실행할 함수
 function handleAuthChanged(user) {
+
     if (user) {
+        console.log("user", user)
         // 로그인된 상태
         HTML_CHAT_BOX.style.display = "block"
         HTML_LOGIN_BOX.style.display = "none"
@@ -81,7 +93,10 @@ function handleAuthChanged(user) {
         if (user.isAnonymous === true) {
             // 익명 로그인
             USER_EMAIL.innerText = "Guest User"
-        } else {
+        } else if (user.providerId === "github.com") {
+                   USER_EMAIL.EMAIL.innerText = user.constructor.name
+        }
+        else {
             // 이메일 로그인
             USER_EMAIL.innerText = user.email
         }
@@ -112,7 +127,10 @@ function sendMessage() {
         let user_name = ""
         if (auth.currentUser.email === null) {
             user_name = "Anonymous User"
-        } else {
+        } else if (user.providerId === "github.com") {
+        user_name = "user.constructor.name"
+        }
+        else {
             user_name = emailToName(auth.currentUser.email)
         }
 
@@ -168,6 +186,7 @@ HTML_LOGIN_BTN.addEventListener(`click`, loginProcess)
 HTML_REGISTER_BTN.addEventListener(`click`, registerProcess)
 HTML_GUEST_BTN.addEventListener(`click`, guestProcess)
 HTML_LOGOUT_BTN.addEventListener(`click`, logoutProcess)
-
+HTML_GITHUB_LOGIN_BTN.addEventListener(`click`, githubLoginProcess)
 // 채팅창 관련
 HTML_SEND_BTN.addEventListener(`click`, sendMessage)
+
