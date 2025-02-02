@@ -85,7 +85,6 @@ function logoutProcess() {
 function handleAuthChanged(user) {
 
     if (user) {
-        console.log("user", user)
         // 로그인된 상태
         HTML_CHAT_BOX.style.display = "block"
         HTML_LOGIN_BOX.style.display = "none"
